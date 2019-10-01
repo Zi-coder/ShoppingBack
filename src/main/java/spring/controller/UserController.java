@@ -7,53 +7,55 @@ import org.springframework.web.bind.annotation.*;
 import spring.Exception.ResourceNotFoundException;
 import spring.dao.UserDao;
 import spring.modal.UserModel;
+import spring.service.UserService;
+import spring.service.UserServiceImplementation;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
 public class UserController {
     @Autowired
-    UserDao userDao;
+    UserService userService;
+
     
 //    Get all users
     @GetMapping("/users")
     public List<UserModel> getAllUsers(){
-    return userDao.findAll();
+    return userService.getAllUsers();
     }
     
 //Add user to db
     @PostMapping("/addUser")
     public UserModel addUser(@Valid @RequestBody UserModel userModel){
-        return userDao.save(userModel);
+        return userService.addUser(userModel);
+
     }
     
 //   Retrieve details of ine user
     @GetMapping("/user/{id}")
     public UserModel getUserById(@PathVariable(value = "id") Long user_id){
-        return userDao.findById(user_id).orElseThrow( ()-> new ResourceNotFoundException("User","id",user_id));
+        return userService.getUserById(user_id);
     }
     
 //update details of user
 
-    @PutMapping("/notes/{id}")
-    public UserModel updateUserModel(@PathVariable(value = "id") Long user_id,
+    @PutMapping("/updateUser/{id}")
+    public UserModel updateUserDetails(@PathVariable(value = "id") Long user_id,
                            @Valid @RequestBody UserModel userDetails) {
 
-        UserModel userModel = userDao.findById(user_id)
-                .orElseThrow(() -> new ResourceNotFoundException("UserModel", "id", user_id));
-
-        return userModel;
+        return userService.updateUserDetails(user_id, userDetails);
     }
 //
-@DeleteMapping("/notes/{id}")
+@DeleteMapping("/deleteUser/{id}")
 public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long Id) {
-    UserModel userModel = userDao.findById(Id)
-            .orElseThrow(() -> new ResourceNotFoundException("Note", "id", Id));
 
-    userDao.delete(userModel);
+    return ResponseEntity.ok().body(userService.deleteNote(Id));
+}
+@PostMapping("/username")
+public ResponseEntity<?> findByEmailAddress(@Valid @RequestBody UserModel user){
 
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok().body(userService.findByEmailAddress(user.getUsername()));
 }
 }

@@ -1,16 +1,12 @@
 package spring.service;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.Exception.ResourceNotFoundException;
 import spring.dao.UserDao;
-import spring.modal.UserModel;
+import spring.modal.Users;
 
 import java.util.List;
-import java.util.Queue;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -18,42 +14,36 @@ public class UserServiceImplementation implements UserService {
     UserDao userDao;
 
     @Override
-    public List<UserModel> getAllUsers() {
+    public List<Users> getAllUsers() {
         return userDao.findAll();
     }
 
     @Override
-    public UserModel addUser(UserModel userModel) {
-        return userDao.save(userModel);
+    public Users addUser(Users users) {
+        return userDao.save(users);
     }
 
     @Override
-    public UserModel getUserById(Long user_id) {
+    public Users getUserById(Long user_id) {
 
         return userDao.findById(user_id).orElseThrow( ()-> new ResourceNotFoundException("User","id",user_id));
     }
 
     @Override
-    public UserModel updateUserDetails(Long user_id, UserModel userDetails) {
-        UserModel userModel = userDao.findById(user_id)
+    public Users updateUserDetails(Long user_id, Users userDetails) {
+        Users users = userDao.findById(user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("UserModel", "id", user_id));
 
-        return userModel;
-    }
-
-
-    @Override
-    public String deleteNote(Long Id) {
-        UserModel userModel = userDao.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", Id));
-
-        userDao.delete(userModel);
-
-        return "Deleted Successfully";
+        return users;
     }
 
     @Override
-    public UserModel findByEmailAddress(String emailAddress) {
+    public void deleteUser(Long id) {
+         userDao.deleteById(id);
+    }
+
+    @Override
+    public Users findByEmailAddress(String emailAddress) {
         return userDao.findByEmailAddress(emailAddress);
     }
 }

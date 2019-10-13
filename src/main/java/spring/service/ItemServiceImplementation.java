@@ -27,4 +27,8 @@ public class ItemServiceImplementation  implements ItemService{
        return itemsDAO.findById(id);
     }
 
+    @Override
+    public List<Items> filterCategory(String category) {
+        return itemsDAO.findAllByCategory(category);
+    }
 }

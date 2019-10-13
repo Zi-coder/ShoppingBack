@@ -11,4 +11,5 @@ public interface ItemService {
     public List<Items> getAllItems();
     public Items addItem(Items items);
     public Optional<Items> itemDetails(Long id);
+    public List<Items>  filterCategory(String category);
 }

@@ -29,4 +29,8 @@ public class ItemsController {
     public Optional<Items> getItemDetailById(@PathVariable(value = "id") Long id) {
         return itemService.itemDetails(id);
     }
+    @GetMapping("/getItem/{cat}")
+    public List<Items> getItemByCat(@PathVariable(value = "cat") String cat) {
+        return itemService.filterCategory(cat);
+    }
 }

@@ -33,4 +33,9 @@ public class ItemsController {
     public List<Items> getItemByCat(@PathVariable(value = "cat") String cat) {
         return itemService.filterCategory(cat);
     }
+
+    @GetMapping("filter{low}{high}")
+    public List<Items> priceFilter(@PathVariable(value = "low")String low,@PathVariable(value = "high")String high){
+        return itemService.findAllByPriceBetween(Double.parseDouble(low),Double.parseDouble(high));
+    }
 }

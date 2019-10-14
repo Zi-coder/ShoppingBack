@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ItemsDAO extends JpaRepository<Items,Long> {
     List<Items> findAllByCategory(String category);
+    List<Items> findAllByPriceBetween(double low,double high);
 }

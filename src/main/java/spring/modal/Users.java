@@ -99,4 +99,7 @@ public class Users implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-}
+    public String toString(){
+        return username;
+    }
+ }

@@ -43,4 +43,15 @@ public class ItemServiceImplementation  implements ItemService{
         System.out.println("ItemService me hu bhai...ye ID aayi hai " + id);
         return itemsDAO.findById(id).orElseThrow( ()-> new ResourceNotFoundException("User","id",id));
     }
+
+    @Override
+    public List<Items> filterBrand(String brand) {
+        System.out.println("Item Service me ye brand aayya hai " + brand);
+        return itemsDAO.findAllByBrand(brand);
+    }
+
+    @Override
+    public List<Items> filterByBrandAndPrice(String brand, double low, double high) {
+        return itemsDAO.findAllByBrandAndPriceBetween(brand, low, high);
+    }
 }

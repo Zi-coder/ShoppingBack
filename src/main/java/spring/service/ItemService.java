@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface ItemService {
-    public Items getById(Long id);
-    public List<Items> getAllItems();
-    public Items addItem(Items items);
-    public Optional<Items> itemDetails(Long id);
-    public List<Items>  filterCategory(String category);
-    public List<Items> findAllByPriceBetween(double low,double high);
+ public interface ItemService {
+     Items           getById(Long id);
+     List<Items>     getAllItems();
+     Items           addItem(Items items);
+     Optional<Items> itemDetails(Long id);
+     List<Items>     filterCategory(String category);
+     List<Items>     findAllByPriceBetween(double low,double high);
+     List<Items>     filterBrand(String brand);
+     List<Items>     filterByBrandAndPrice(String brand,double low,double high);
+
+    
 }

@@ -12,5 +12,6 @@ public interface UserService  {
     public void deleteUser(Long id);
     public Users findByEmailAddress(String emailAddress);
     public String updateUser(Long id);
+    Users getRole(String username);
 
 }

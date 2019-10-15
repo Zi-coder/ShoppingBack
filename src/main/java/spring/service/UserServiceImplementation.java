@@ -55,4 +55,9 @@ public class UserServiceImplementation implements UserService {
     public String updateUser(Long id) {
         return null;
     }
+
+    @Override
+    public Users getRole(String username) {
+        return userDao.findRoleByUsername(username);
+    }
 }

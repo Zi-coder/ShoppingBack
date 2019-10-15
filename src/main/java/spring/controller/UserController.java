@@ -38,13 +38,15 @@ public class UserController {
     }
     @GetMapping("/getUserDetails")
     public Users getDetail(Principal principal){
-        System.out.println(principal.getName());
-        System.out.println(userService.findByEmailAddress(principal.getName()).toString());
         return userService.findByEmailAddress(principal.getName());
     }
 
     @PostMapping("/update")
     public Users updateUser(@RequestBody Users users,Principal principal){
       return  userService.updateUserDetails(currentUserService.getCurrentId(principal),users);
+    }
+    @GetMapping("/role")
+    public String findRoleByUserName(Principal principal){
+        return "\""+userService.getRole(principal.getName()).getRole()+"\"";
     }
 }

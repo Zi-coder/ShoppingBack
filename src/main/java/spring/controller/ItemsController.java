@@ -34,8 +34,19 @@ public class ItemsController {
         return itemService.filterCategory(cat);
     }
 
-    @GetMapping("filter{low}{high}")
+    @GetMapping("filter/price/low={low}&high={high}")
     public List<Items> priceFilter(@PathVariable(value = "low")String low,@PathVariable(value = "high")String high){
         return itemService.findAllByPriceBetween(Double.parseDouble(low),Double.parseDouble(high));
     }
+    @GetMapping("/filter/{brand}")
+    public List<Items> brandFilter(@PathVariable(value = "brand")String brand){
+        System.out.println("Controller me ye brand aaya hai + " + brand);
+        return itemService.filterBrand(brand);
+    }
+    @GetMapping("filter/combined/brand={brand}&low={low}&high={high}")
+    public List<Items> combinedFilter(@PathVariable("brand")String brand,@PathVariable(value = "low")String low,@PathVariable(value = "high")String high){
+        return itemService.filterByBrandAndPrice(brand,Double.parseDouble(low),Double.parseDouble(high));
+    }
+
+
 }

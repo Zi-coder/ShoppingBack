@@ -7,9 +7,11 @@ import spring.modal.Cart;
 import spring.modal.Items;
 import spring.modal.Users;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Service
+@Transactional
 public class CartServiceImplementation implements CartService {
 
     @Autowired
@@ -24,6 +26,42 @@ public class CartServiceImplementation implements CartService {
     @Override
     public List<Cart> findAllByUser(Users users) {
         return cartDAO.findAllByUser(users);
+    }
+
+    @Override
+    public String deleteItem(Long userid,Long itemid){
+        Users user = userService.getUserById(userid);
+        Items items = itemService.getById(itemid);
+        Cart cart = cartDAO.findByUserAndItem(user,items).get();
+        cartDAO.delete(cart);
+        return "\"Deleted\"";
+
+    }
+
+    @Override
+    public String clearCart(Long userid) {
+
+        return cartDAO.deleteAllByUser(userService.getUserById(userid));
+    }
+
+    @Override
+    public String updateQuantity(Long userid, Long itemid, boolean inc) {
+        Users user = userService.getUserById(userid);
+        Items items = itemService.getById(itemid);
+        if(cartDAO.findByUserAndItem(user,items).isPresent() && inc==true){
+            Cart cart = cartDAO.findByUserAndItem(user,items).get();
+            cart.setQuantity(cart.getQuantity()+1);
+            cartDAO.save(cart);
+            return "\"Quantity Incremented\"";
+        }
+        else {
+            Cart cart = cartDAO.findByUserAndItem(user,items).get();
+            if(cart.getQuantity() > 0)
+            cart.setQuantity(cart.getQuantity()-1);
+            cartDAO.save(cart);
+            return "\"Quantity Decremented\"";
+
+        }
     }
 
     @Override

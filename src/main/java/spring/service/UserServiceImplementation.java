@@ -32,8 +32,13 @@ public class UserServiceImplementation implements UserService {
     public Users updateUserDetails(Long user_id, Users userDetails) {
         Users users = userDao.findById(user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("UserModel", "id", user_id));
+        users.setAddress(userDetails.getAddress());
+        users.setContact(userDetails.getContact());
+        users.setFullname(userDetails.getFullname());
+        users.setGender(userDetails.getGender());
+        users.setPhoto(userDetails.getPhoto());
 
-        return users;
+        return userDao.save(users);
     }
 
     @Override
@@ -43,6 +48,11 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Users findByEmailAddress(String emailAddress) {
-        return userDao.findByEmailAddress(emailAddress);
+        return userDao.findByUsername(emailAddress);
+    }
+
+    @Override
+    public String updateUser(Long id) {
+        return null;
     }
 }

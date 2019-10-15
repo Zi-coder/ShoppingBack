@@ -15,4 +15,6 @@ public interface CartDAO extends JpaRepository<Cart,Long> {
 
    Optional<Cart> findByUserAndItem(Users user, Items item);
    List<Cart> findAllByUser(Users users);
+   List<Cart> findAllByItemAndUser(Users users,Items items);
+   String deleteAllByUser(Users users);
 }

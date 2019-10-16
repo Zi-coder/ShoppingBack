@@ -51,10 +51,6 @@ public class UserServiceImplementation implements UserService {
         return userDao.findByUsername(emailAddress);
     }
 
-    @Override
-    public String updateUser(Long id) {
-        return null;
-    }
 
     @Override
     public Users getRole(String username) {

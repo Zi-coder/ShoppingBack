@@ -25,6 +25,11 @@ public class ItemsController {
         return itemService.addItem(items);
 
     }
+    @PostMapping("/editItem")
+    public Items editItem(@RequestBody Items items){
+        return itemService.addItem(items);
+
+    }
     @GetMapping("/getDetail/{id}")
     public Optional<Items> getItemDetailById(@PathVariable(value = "id") Long id) {
         return itemService.itemDetails(id);
@@ -48,5 +53,9 @@ public class ItemsController {
         return itemService.filterByBrandAndPrice(brand,Double.parseDouble(low),Double.parseDouble(high));
     }
 
+    @GetMapping("find/{name}")
+    public List<Items> searchByName(@PathVariable(value = "name")String name){
+        return itemService.searchByRegex(name);
+    }
 
 }

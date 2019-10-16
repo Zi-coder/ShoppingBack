@@ -24,6 +24,20 @@ public class ItemServiceImplementation  implements ItemService{
     }
 
     @Override
+    public Items editItem(Items items) {
+        System.out.println("Got this product " + items.getName());
+        Items item = itemsDAO.findById(items.getId()).orElseThrow(() -> new ResourceNotFoundException("ItemsModal", "id", items.getId()));
+        item.setBrand(items.getBrand());
+        item.setCategory(items.getCategory());
+        item.setDescription(items.getDescription());
+        item.setName(items.getName());
+        item.setPrice(items.getPrice());
+        item.setSeller(items.getSeller());
+        item.setUrl(items.getUrl());
+        return itemsDAO.save(items);
+    }
+
+    @Override
     public Optional<Items> itemDetails(Long id) {
        return itemsDAO.findById(id);
     }
@@ -36,6 +50,11 @@ public class ItemServiceImplementation  implements ItemService{
     @Override
     public List<Items> findAllByPriceBetween(double low, double high) {
         return itemsDAO.findAllByPriceBetween(low, high);
+    }
+
+    @Override
+    public List<Items> searchByRegex(String reg) {
+        return itemsDAO.findByNameContaining(reg);
     }
 
     @Override

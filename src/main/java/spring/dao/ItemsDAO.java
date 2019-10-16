@@ -12,4 +12,5 @@ public interface ItemsDAO extends JpaRepository<Items,Long> {
     List<Items> findAllByPriceBetween(double low,double high);
     List<Items> findAllByBrand(String brand);
     List<Items> findAllByBrandAndPriceBetween(String brand,double low,double high);
+    List<Items> findByNameContaining(String name);
 }

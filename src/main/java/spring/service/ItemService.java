@@ -16,6 +16,8 @@ import java.util.Optional;
      List<Items>     findAllByPriceBetween(double low,double high);
      List<Items>     filterBrand(String brand);
      List<Items>     filterByBrandAndPrice(String brand,double low,double high);
+     Items           editItem(Items items);
+     List<Items>     searchByRegex(String reg);
 
     
 }

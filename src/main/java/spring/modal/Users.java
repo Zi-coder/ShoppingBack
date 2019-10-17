@@ -1,5 +1,7 @@
 package spring.modal;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,6 +13,7 @@ public class Users implements Serializable {
 
     private String photo;
     private String fullname;
+    @Column(unique = true)
     private String username;
     private String password;
     private String contact;

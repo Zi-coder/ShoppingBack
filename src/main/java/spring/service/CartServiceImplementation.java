@@ -22,11 +22,12 @@ public class CartServiceImplementation implements CartService {
     @Autowired
     ItemService itemService;
 
-
     @Override
-    public List<Cart> findAllByUser(Users users) {
-        return cartDAO.findAllByUser(users);
+    public void deleteById(Long aLong) {
+        cartDAO.deleteById(aLong);
     }
+
+
 
     @Override
     public String deleteItem(Long userid,Long itemid){
@@ -56,9 +57,14 @@ public class CartServiceImplementation implements CartService {
         }
         else {
             Cart cart = cartDAO.findByUserAndItem(user,items).get();
-            if(cart.getQuantity() > 0)
-            cart.setQuantity(cart.getQuantity()-1);
-            cartDAO.save(cart);
+            if(cart.getQuantity() > 0){
+                cart.setQuantity(cart.getQuantity()-1);
+                if(cart.getQuantity() == 0)
+                    cartDAO.delete(cart);
+                else
+                cartDAO.save(cart);
+            }
+
             return "\"Quantity Decremented\"";
 
         }
@@ -85,6 +91,17 @@ public class CartServiceImplementation implements CartService {
 
 
         }
+    @Override
+    public List<Cart> findAllByUser(Users users) {
+
+        return cartDAO.findAllByUser(users);
+    }
+
+
+    @Override
+    public List<Cart> findAllByItem(Items items) {
+        return cartDAO.findAllByItem(items);
+    }
 
 
 }

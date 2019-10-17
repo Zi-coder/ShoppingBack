@@ -13,9 +13,14 @@ import java.util.Optional;
 @Transactional
 public interface CartService {
 
+    void deleteById(Long aLong);
+
     Cart addProduct(Long userid, Long itemid);
-    List<Cart> findAllByUser(Users user);
+
     String updateQuantity(Long userid, Long itemid,boolean inc);
     String deleteItem(Long userid,Long itemid);
     String clearCart(Long userid);
+
+    List<Cart> findAllByItem(Items items);
+    List<Cart> findAllByUser(Users user);
 }

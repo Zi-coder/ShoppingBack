@@ -11,13 +11,14 @@ public class OrderHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Users users;
 
-    @ManyToOne
-    private Items items;
+    private String items;
 
     private double total;
+
+    private int quantity;
 
 
     private Date orderDate;
@@ -39,11 +40,19 @@ public class OrderHistory {
         this.users = users;
     }
 
-    public Items getItems() {
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getItems() {
         return items;
     }
 
-    public void setItems(Items items) {
+    public void setItems(String items) {
         this.items = items;
     }
 

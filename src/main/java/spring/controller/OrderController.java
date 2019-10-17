@@ -26,16 +26,19 @@ public class OrderController {
     @Autowired
     ItemService itemService;
 
+    //placing an order
     @PostMapping("/placeOrder")
     public String placeOrder(@RequestBody Cart orders, Principal principal){
         System.out.println("Bhai controller me hu...ye list aayi hai");
         System.out.println(orders);
         double total = 0;
             total += orders.getItem().getPrice() * orders.getQuantity();
-            orderHistoryService.placeOrder( currentUserService.getCurrentId(principal),orders.getItem().getId() ,total);
-            System.out.println("Bhai ye maal Bhaeja hai -Itemid: "+ orders.getItem().getId() + " or total hua hai  " + total);
+            orderHistoryService.placeOrder( currentUserService.getCurrentId(principal),orders.getItem().getId() ,total,orders.getQuantity());
+
         return "\" Order Placed \"";
     }
+
+    //getting orders history of users
     @GetMapping("/fetchOrders")
     public List<OrderHistory> fetchOrderForUser(Principal principal){
 

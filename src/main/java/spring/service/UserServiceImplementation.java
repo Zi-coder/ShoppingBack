@@ -25,6 +25,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Users getUserById(Long user_id) {
+
         return userDao.findById(user_id).orElseThrow( ()-> new ResourceNotFoundException("User","id",user_id));
     }
 
@@ -53,7 +54,8 @@ public class UserServiceImplementation implements UserService {
 
 
     @Override
-    public Users getRole(String username) {
-        return userDao.findRoleByUsername(username);
+    public String getRole(String username)
+    {
+        return userDao.findRoleByUsername(username).getRole();
     }
 }

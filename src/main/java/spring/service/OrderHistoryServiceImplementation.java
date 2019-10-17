@@ -20,18 +20,17 @@ public class OrderHistoryServiceImplementation implements OrderHistoryService {
     @Autowired
     OrderHisatoryDAO orderHisatoryDAO;
     @Override
-    public OrderHistory placeOrder(Long userid, Long itemsid,Double total) {
+    public OrderHistory placeOrder(Long userid, Long itemsid,Double total,int quantity) {
 
-        System.out.println("Bhai orderHistoryService ki implementation me hu...");
         OrderHistory order = new OrderHistory();
         Users user  = userService.getUserById(userid);
         Items items = itemService.getById(itemsid);
         order.setUsers(user);
-        order.setItems(items);
+        order.setItems(items.toString());
         order.setTotal(total);
+        order.setQuantity(quantity);
         order.setOrderDate(new Date());
         orderHisatoryDAO.save(order);
-        System.out.println("Bhai yaha ka kaam khatam ho gaya");
         return order;
     }
 

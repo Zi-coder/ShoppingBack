@@ -18,6 +18,7 @@ import java.util.Optional;
      List<Items>     filterByBrandAndPrice(String brand,double low,double high);
      Items           editItem(Items items);
      List<Items>     searchByRegex(String reg);
+     String                deleteItem(Long id);
 
     
 }

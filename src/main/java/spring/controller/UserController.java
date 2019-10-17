@@ -25,28 +25,33 @@ public class UserController {
     public String getUser(){
         return "\"Successful Login\"";
     }
+
+    @GetMapping("/getUserDetails")
+    public Users getDetail(Principal principal){
+        return userService.findByEmailAddress(principal.getName());
+    }
+
+    @GetMapping("/role")
+    public String findRoleByUserName(Principal principal){
+        return "\""+userService.getRole(principal.getName())+"\"";
+    }
+
     @PostMapping("/addUser")
     public Users createUser(@Valid @RequestBody Users user){
         user.setActive(1);
         user.setRole("user");
         return userService.addUser(user);
     }
-    @DeleteMapping(path = { "/deleteUser/{id}" })
-    public String delete(@PathVariable("id") Long id){
-        userService.deleteUser(id);
-        return "User Removed";
-    }
-    @GetMapping("/getUserDetails")
-    public Users getDetail(Principal principal){
-        return userService.findByEmailAddress(principal.getName());
-    }
 
     @PostMapping("/update")
     public Users updateUser(@RequestBody Users users,Principal principal){
       return  userService.updateUserDetails(currentUserService.getCurrentId(principal),users);
     }
-    @GetMapping("/role")
-    public String findRoleByUserName(Principal principal){
-        return "\""+userService.getRole(principal.getName()).getRole()+"\"";
+
+    @DeleteMapping(path = { "/deleteUser/{id}" })
+    public String delete(@PathVariable("id") Long id){
+        userService.deleteUser(id);
+        return "User Removed";
     }
+
 }

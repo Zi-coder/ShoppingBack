@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.Exception.ResourceNotFoundException;
 import spring.dao.ItemsDAO;
+import spring.modal.Cart;
 import spring.modal.Items;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class ItemServiceImplementation  implements ItemService{
     @Autowired
     ItemsDAO itemsDAO;
+    @Autowired
+    CartService cartService;
     @Override
     public List<Items> getAllItems() {
         return itemsDAO.findAll();
@@ -42,6 +45,18 @@ public class ItemServiceImplementation  implements ItemService{
        return itemsDAO.findById(id);
     }
 
+    @Override
+    public String deleteItem(Long id){
+        Items items = itemsDAO.findById(id).get();
+        List<Cart> list = cartService.findAllByItem(items);
+        for(Cart cart: list)
+            cartService.deleteById(cart.getId());
+
+
+        itemsDAO.delete(items);
+
+        return "\"Item Deleted From DataBase\"";
+    }
     @Override
     public List<Items> filterCategory(String category) {
         return itemsDAO.findAllByCategory(category);

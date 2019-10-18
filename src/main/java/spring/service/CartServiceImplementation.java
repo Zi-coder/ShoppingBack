@@ -72,7 +72,6 @@ public class CartServiceImplementation implements CartService {
 
     @Override
     public Cart addProduct(Long userid, Long itemid) {
-        System.out.println("Bhai Cart Service me hu ..user id " + userid +" hai aur item id hai "+ itemid) ;
         Users user = userService.getUserById(userid);
         Items items = itemService.getById(itemid);
         if(cartDAO.findByUserAndItem(user,items).isPresent()){

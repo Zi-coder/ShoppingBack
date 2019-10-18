@@ -28,7 +28,6 @@ public class ItemServiceImplementation  implements ItemService{
 
     @Override
     public Items editItem(Items items) {
-        System.out.println("Got this product " + items.getName());
         Items item = itemsDAO.findById(items.getId()).orElseThrow(() -> new ResourceNotFoundException("ItemsModal", "id", items.getId()));
         item.setBrand(items.getBrand());
         item.setCategory(items.getCategory());
@@ -74,13 +73,11 @@ public class ItemServiceImplementation  implements ItemService{
 
     @Override
     public Items getById(Long id) {
-        System.out.println("ItemService me hu bhai...ye ID aayi hai " + id);
         return itemsDAO.findById(id).orElseThrow( ()-> new ResourceNotFoundException("User","id",id));
     }
 
     @Override
     public List<Items> filterBrand(String brand) {
-        System.out.println("Item Service me ye brand aayya hai " + brand);
         return itemsDAO.findAllByBrand(brand);
     }
 

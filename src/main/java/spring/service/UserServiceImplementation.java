@@ -35,6 +35,8 @@ public class UserServiceImplementation implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("UserModel", "id", user_id));
         users.setAddress(userDetails.getAddress());
         users.setContact(userDetails.getContact());
+        users.setUsername(userDetails.getUsername());
+        users.setPassword(userDetails.getPassword());
         users.setFullname(userDetails.getFullname());
         users.setGender(userDetails.getGender());
         users.setPhoto(userDetails.getPhoto());

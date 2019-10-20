@@ -52,11 +52,6 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-<!--		hibernate dependencies-->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-
-
 	</dependencies>
 
 	<build>
